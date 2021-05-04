@@ -30,15 +30,6 @@ public class CommonPO {
      * className, xpath as attributes.
      */
 
-
-    private By dateTextBox = By.xpath("//input[@class='booking-input-checkin__input']");
-
-    @FindBy(xpath = "(//span[@class='cell day today'])[2]")
-    private WebElement datePickToday;
-
-    @FindBy(xpath = "(//span[@class='cell day'])[1]")
-    private WebElement datePickTomorrow;
-
     @FindBy(className = "nav-login-button")
     private WebElement enterButton;
 
@@ -56,9 +47,6 @@ public class CommonPO {
 
     @FindBy(className = "btn-cta-label")
     private WebElement searchButton;
-
-    @FindBy(xpath = "//a[contains(text(), 'Area')]/parent::li")
-    private WebElement areaTab;
 
     @FindBy(css = "button[data-path='btn_popperAction']")
     private WebElement sayaMengertiPopup;
@@ -88,8 +76,6 @@ public class CommonPO {
     @FindBy(className = "bg-c-button--md")
     private WebElement fasilitasText;
 
-    @FindBy(css = ".booking-card__booking-action")
-    private WebElement bookingButton;
 
     @FindBy (xpath = "//input[@type='search']")
     private WebElement searchInputForm;
@@ -100,45 +86,33 @@ public class CommonPO {
     @FindBy(css = ".name .--kost-title")
     private WebElement kostName;
 
-    @FindBy(id = "mamiCheckboxCommon")
-    private WebElement termsAndConditions;
-
-    @FindBy(className = "booking-action--btn")
-    private WebElement bookingButtonV2;
-
-    @FindBy(className = "booking-success__button-chat")
-    private WebElement chatOwnerKostButton;
-
-    @FindBy(className = "message-item")
-    private WebElement textMessages;
-
-    @FindBy(className = "text-primary")
-    private WebElement lihatSelengkapnya;
-
-    @FindBy(className = "btn btn-success")
-    private WebElement batalkanBookingButton;
-
-    @FindBy(className = "detail-booking")
-    private WebElement detailBookingCard;
-
-    @FindBy(className = "ic-close")
-    private WebElement backButton;
-
-    @FindBy(className = "ic-minimize")
-    private WebElement closeChatRoomButton;
-
+    /**
+     * Click on "Masuk" Button
+     * @throws InterruptedException
+     */
     public void clickOnEnterButton() throws InterruptedException {
         if (selenium.waitInCaseElementVisible(enterButton, 3) != null){
             selenium.clickOn(enterButton);
         }
     }
 
+    /**
+     * Click on search button and search kost using custom value
+     * @param area
+     * @throws InterruptedException
+     */
     public void searchArea(String area)throws InterruptedException{
         selenium.clickOn(searchButton);
         selenium.enterText(searchInputForm,area,true);
         selenium.clickOn(resultList);
     }
 
+    /**
+     * Login as Tenant with Phone Number
+     * @param phone
+     * @param password
+     * @throws InterruptedException
+     */
     public void loginAsTenantWithPhoneNumber(String phone, String password) throws InterruptedException {
         selenium.clickOn(loginAsTenantButton);
         selenium.enterText(phoneTextbox, phone, false);
@@ -148,19 +122,10 @@ public class CommonPO {
         selenium.hardWait(3);
     }
 
-    public void clickOnSearchButton() throws InterruptedException {
-        selenium.waitInCaseElementVisible(searchButton,2);
-        selenium.clickOn(searchButton);
-    }
-
-    public void clickOnAreaTab() throws InterruptedException {
-        selenium.clickOn(areaTab);
-    }
-
-    public void clickOnPopularCity(String city) throws InterruptedException {
-        selenium.clickOn(By.xpath("//div[@class='pills']//button[contains(text(), '" + city +"')]"));
-    }
-
+    /**
+     * Click on Saya Mengerti Pop Up
+     * @throws InterruptedException
+     */
     public void clickOnSayaMengertiPopUp() throws InterruptedException {
         selenium.waitInCaseElementVisible(sayaMengertiPopup, 3);
         selenium.clickOn(sayaMengertiPopup);
@@ -168,29 +133,52 @@ public class CommonPO {
         selenium.clickOn(sayaMengertiPopup);
     }
 
+    /**
+     * Click on Kost Rule Button
+     * @throws InterruptedException
+     */
     public void clickOnKosRuleButton() throws InterruptedException {
         selenium.clickOn(kosRuleButton);
     }
 
+    /**
+     * Click on 24 Hour Access Checkbox
+     * @param filter
+     */
     public void clickOn24HourAccessCheckBox(String filter) {
         selenium.javascriptClickOn(By.xpath("//span[text() = '" + filter + "']/parent::label"));
     }
 
+    /**
+     * Click on "Simpan" button for applied filter
+     */
     public void clickOnSaveButton() {
         selenium.javascriptClickOn(saveButton.get(3));
     }
 
+    /**
+     * Click on Booking Langsung Button
+     * @throws InterruptedException
+     */
     public void clickOnBookingLangsungButton() throws InterruptedException {
         selenium.clickOn(bookingLangsungButton);
         selenium.waitInCaseElementVisible(sliderButton, 3);
         selenium.javascriptClickOn(sliderButton);
     }
 
+    /**
+     * Select on of kost from the kost lists
+     * @throws InterruptedException
+     */
     public void clickOnKostList() throws InterruptedException {
         selenium.clickOn(kostList.get(0));
         selenium.switchToWindow(2);
     }
 
+    /**
+     * Dismiss FTUE Pop up
+     * @throws InterruptedException
+     */
     public void dismissFTUEScreen() throws InterruptedException {
         selenium.waitInCaseElementVisible(continueBtn, 5);
         selenium.clickOn(continueBtn);
@@ -201,54 +189,10 @@ public class CommonPO {
         selenium.clickOn(iUnderstandButtonBy);
     }
 
+    /**
+     * Scroll to Kost Name
+     */
     public void scrollToKostName() {
         selenium.pageScrollInView(kostName);
-    }
-
-    public void selectDateForStartBoarding(String date) throws InterruptedException {
-        if(selenium.waitInCaseElementPresent(dateTextBox,5)!=null){
-            if(date.equalsIgnoreCase("today")){
-                selenium.javascriptClickOn(dateTextBox);
-                selenium.clickOn(datePickToday);
-            }else {
-                selenium.javascriptClickOn(dateTextBox);
-                selenium.javascriptClickOn(datePickTomorrow);
-            }
-        }
-    }
-
-    public void selectRentType(String type) {
-        selenium.javascriptClickOn(By.xpath("//div[@class='booking-rent-type__options']/div[@class='booking-rent-type__options-item']/div[contains(.,'"+type+"')]"));
-    }
-
-    public void clickOnBookingButton() throws InterruptedException {
-        selenium.pageScrollInView(bookingButton);
-        selenium.waitTillElementIsClickable(bookingButton);
-        selenium.javascriptClickOn(bookingButton);
-    }
-
-    public void clickOnBookingButtonV2() throws InterruptedException {
-        selenium.clickOn(bookingButtonV2);
-    }
-
-    public void clickOnTermsAndConditionButton() throws InterruptedException {
-        selenium.pageScrollInView(termsAndConditions);
-        selenium.javascriptClickOn(termsAndConditions);
-    }
-
-    public void clickChatOwnerKostButton() throws InterruptedException {
-        selenium.clickOn(chatOwnerKostButton);
-    }
-
-    public String getChatMessagesText(){
-        return selenium.getText(textMessages).substring(0,34);
-    }
-
-    public void clickOnBatalkanBooking() throws InterruptedException {
-        selenium.clickOn(backButton);
-        selenium.clickOn(closeChatRoomButton);
-        selenium.clickOn(lihatSelengkapnya);
-        selenium.pageScrollUsingCoordinate(0, 100);
-        selenium.clickOn(batalkanBookingButton);
     }
 }
