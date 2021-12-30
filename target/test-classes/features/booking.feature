@@ -16,3 +16,4 @@ Feature: Booking
     And user click chat pemilik kos
     Then user validate text messages has sent "Halo Bapak/Ibu Test Auto Activate."
     And user click on batalkan booking button
+    Then user validate the booking was successfully "dibatalkan" on "Kos Bbkquweeee Gambir Jakarta Pusat"

@@ -4,16 +4,19 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
+import pageobjects.BookingPO;
 import pageobjects.CommonPO;
 import utilities.Constants;
 import utilities.JavaHelpers;
 import utilities.SeleniumHelpers;
 import utilities.ThreadManager;
 
+import java.text.ParseException;
+
 public class CommonSteps {
     private WebDriver driver = ThreadManager.getDriver();
     private SeleniumHelpers selenium = new SeleniumHelpers(driver);
-    private CommonPO common = new CommonPO(driver);
+    private CommonPO commonPO = new CommonPO(driver);
 
     private String accountProps = "src/test/resources/testData/rheza.properties";
 
@@ -31,7 +34,7 @@ public class CommonSteps {
 
     @And("user click on Enter button")
     public void user_click_on_Enter_Button() throws InterruptedException {
-        common.clickOnEnterButton();
+        commonPO.clickOnEnterButton();
     }
 
     @When("user login as Tenant via phone number {string}")
@@ -43,38 +46,38 @@ public class CommonSteps {
             phone = tenantPhoneNumber;
             password = tenantPassword;
         }
-        common.loginAsTenantWithPhoneNumber(phone, password);
+        commonPO.loginAsTenantWithPhoneNumber(phone, password);
     }
 
     @And("user click on Mamikos Promo Ngebut pop up")
     public void user_click_on_Mamikos_Promo_Ngebut_pop_pup() throws InterruptedException {
-        common.clickOnSayaMengertiPopUp();
+        commonPO.clickOnSayaMengertiPopUp();
     }
 
     @When("user click filter kos with {string}")
     public void user_click_filter_kos_with(String filter) throws InterruptedException {
-        common.clickOnKosRuleButton();
-        common.clickOn24HourAccessCheckBox(filter);
-        common.clickOnSaveButton();
+        commonPO.clickOnKosRuleButton();
+        commonPO.clickOn24HourAccessCheckBox(filter);
+        commonPO.clickOnSaveButton();
     }
 
     @And("user turn on the booking langsung filter")
     public void user_turn_on_the_booking_langsung_filter() throws InterruptedException {
-        common.clickOnBookingLangsungButton();
+        commonPO.clickOnBookingLangsungButton();
     }
 
     @When("user click on kost list")
     public void user_click_on_kost_list() throws InterruptedException {
-        common.clickOnKostList();
+        commonPO.clickOnKostList();
     }
 
     @And("user dismiss ftue screen pop up")
     public void user_dismiss_ftue_screen_pop_up() throws InterruptedException {
-        common.dismissFTUEScreen();
+        commonPO.dismissFTUEScreen();
     }
 
     @And("user search area with value {string}")
     public void user_search_area(String area) throws InterruptedException{
-        common.searchArea(area);
+        commonPO.searchArea(area);
     }
 }
