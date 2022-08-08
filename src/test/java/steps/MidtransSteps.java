@@ -35,17 +35,10 @@ public class MidtransSteps {
         midtrans.clickOnCheckoutButton();
     }
 
-    @And("user should verify ordered item {string} and amount {string}")
-    public void userShouldVerifyOrderedItemAndAmount(String item, String amount) throws InterruptedException {
-        selenium.switchToIframe("snap-midtrans");
-        Assert.assertEquals(midtrans.getItemNameText(), item, "Item name is not equal to " + item);
-        Assert.assertEquals(midtrans.getItemAmountText(), amount, "Item amount is not equal to " + amount);
-        midtrans.clickOnContinueButton();
-    }
-
     @And("user choose {string} as a payment method")
     public void userChooseAsAPaymentMethod(String payment) throws InterruptedException {
-        Assert.assertEquals(midtrans.getCreditCardPMText(), payment, "Payment method is not equal to " + payment);
+        selenium.switchToIframe("snap-midtrans");
+        Assert.assertEquals(midtrans.getCreditCardPMText().substring(0,17), payment, "Payment method is not equal to " + payment);
         midtrans.clickOnCreditCardPM();
     }
 
@@ -54,8 +47,24 @@ public class MidtransSteps {
         midtrans.fillCreditCardInformation(cardNumber, expDate, cvv);
     }
 
-    @Then("user verify pay now button is appeared")
+    @And("user verify pay now button is appeared")
     public void user_verify_button_is_appeared() {
         Assert.assertTrue(midtrans.isPayNowButtonAppear(), "Pay Now button is not appeared");
+    }
+
+    @Then("user click on {string} button")
+    public void user_click_on_pay_now_button(String button) throws InterruptedException {
+        Assert.assertEquals(midtrans.getPayNowButtonText(), button, "Button text is not equal to" + button);
+        midtrans.clickPayNowButton();
+    }
+
+    @When("user input password {string} for payment")
+    public void user_input_password_for_payment(String password){
+        midtrans.enterPasswordforPayment(password);
+    }
+
+    @Then("user click on OK button")
+    public void user_click_on_button() throws InterruptedException {
+        midtrans.clickOnOkButton();
     }
 }

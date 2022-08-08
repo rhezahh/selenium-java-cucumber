@@ -129,4 +129,13 @@ public class SeleniumHelpers
     {
         driver.switchTo().frame(iframeId);
     }
+
+    public void switchToIframeElement(WebElement e){
+        driver.switchTo().frame(e);
+    }
+
+    public void scrollDownToElement(WebElement element) throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        Thread.sleep(500);
+    }
 }

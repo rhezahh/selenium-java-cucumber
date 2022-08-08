@@ -36,20 +36,29 @@ public class MidtransPO {
     @FindBy(className = "button-main-content")
     private WebElement continueButton;
 
-    @FindBy(xpath = "//div[text() = 'Credit/Debit Card']")
+    @FindBy(xpath = "//div[text() = 'Credit/debit card']")
     private WebElement creditCardPM;
 
-    @FindBy(name = "cardnumber")
+    @FindBy(xpath = "//input[@placeholder='1234 1234 1234 1234']")
     private WebElement cardNumberInput;
 
-    @FindBy(xpath = "//input[@placeholder = 'MM / YY']")
+    @FindBy(xpath = "//input[@placeholder = 'MM/YY']")
     private WebElement expireDateInput;
 
     @FindBy(xpath = "//input[@placeholder = '123']")
     private WebElement cvvInput;
 
-    @FindBy(xpath = "//span[contains(text(), 'Pay Now')]")
+    @FindBy(xpath = "//button[contains(text(), 'Pay now')]")
     private WebElement payNowButton;
+
+    @FindBy(xpath = "//input[@placeholder='112233']")
+    private WebElement passwordInput;
+
+    @FindBy(className = "iframe-3ds")
+    private WebElement iframe3ds;
+
+    @FindBy(name = "ok")
+    private WebElement okButton;
 
 
 
@@ -95,4 +104,23 @@ public class MidtransPO {
         return selenium.waitInCaseElementVisible(payNowButton, 3) != null;
     }
 
+    public void clickPayNowButton() throws InterruptedException {
+        selenium.waitTillElementIsClickable(payNowButton);
+        selenium.clickOn(payNowButton);
+    }
+
+    public String getPayNowButtonText() throws InterruptedException {
+        selenium.scrollDownToElement(payNowButton);
+        return selenium.getText(payNowButton);
+    }
+
+    public void enterPasswordforPayment(String password){
+        selenium.switchToIframeElement(iframe3ds);
+        selenium.waitTillElementIsVisible(passwordInput);
+        selenium.enterText(passwordInput, password, false);
+    }
+
+    public void clickOnOkButton() throws InterruptedException {
+        selenium.clickOn(okButton);
+    }
 }
