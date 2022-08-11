@@ -3,7 +3,7 @@
 
 <suite name="Base Suite">
 
-    <parameter name="browserName" value="chrome" />
+    <parameter name="browserName" value="headless-chrome" />
 
     <test name="All">
         <classes>

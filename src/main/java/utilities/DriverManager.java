@@ -21,6 +21,13 @@ public class DriverManager {
                 ThreadManager.setDriver(new ChromeDriver(chromeOptions));
                 break;
 
+            case "headless-chrome":
+                WebDriverManager.chromedriver().setup();
+                chromeOptions.addArguments("--incognito");
+                chromeOptions.addArguments("--headless");
+                ThreadManager.setDriver(new ChromeDriver(chromeOptions));
+                break;
+
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 firefoxOptions.setAcceptInsecureCerts(true);
