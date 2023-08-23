@@ -16,7 +16,7 @@ public class DriverManager {
 
         switch (browserName.toLowerCase()){
             case "chrome":
-                WebDriverManager.chromedriver().setup();
+                WebDriverManager.chromedriver().clearDriverCache().setup();
                 chromeOptions.addArguments("--incognito");
                 ThreadManager.setDriver(new ChromeDriver(chromeOptions));
                 break;
